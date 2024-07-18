@@ -31,8 +31,8 @@
 </head>
 
 <body>
-  <div id="t"></div>
-  <input type="text" id="f" value="Math.sin(t + i * Math.PI / 20)">
+  <label for="f">value(t, i) = </label>
+  <input type="text" id="f" value="Math.sin(t + i * Math.PI / 4)">
   <pre id="f-eval-error">
 
   </pre>
@@ -58,8 +58,6 @@
       params.set('f', f);
       window.location.search = params;
     });
-
-    console.log(f.value)
 
     const METERS = 20;
 
@@ -87,9 +85,9 @@
     }
 
     function step(timestamp) {
-      const t = timestamp / 5000;
-      const div = document.getElementById('t');
-      div.innerText = "t: " + t.toFixed(2);
+      const t = timestamp / 1000;
+      // const div = document.getElementById('t');
+      // div.innerText = "t: " + t.toFixed(2);
 
       for (let i = 0; i < METERS; i++) {
         const f = document.getElementById('f');
@@ -105,7 +103,7 @@
         }
         meter.innerText = meter.value;
 
-        span.innerText = meter.value.toFixed(2);
+        span.innerText = `value(${t.toFixed(2)}, ${i}) == ${meter.value.toFixed(2)}`;
       }
 
       requestAnimationFrame(step);
