@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>meters</title>
+  <style>
+    meter {
+      width: 300px;
+      height: 30px;
+      margin-right: 2px;
+      display: block;
+    }
+
+  .meter-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  #f {
+    width: 80%;
+    font-family: monospace;
+  }
+
+  #f-eval-error {
+    color: red;
+    /** wrap */
+    white-space: pre-wrap;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="t"></div>
+  <input type="text" id="f" value="Math.sin(t + i * Math.PI / 20)">
+  <pre id="f-eval-error">
+
+  </pre>
+  <div id="meter-container">
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const input = document.getElementById('f');
+
+    if (params.get('f')) {
+      // if the query param has an f, set the value of the input
+      input.value = params.get('f');
+    } else {
+      // otherwise use the default input
+      params.set('f', input.value);
+      window.location.search = params
+    }
+
+    document.getElementById('f').addEventListener('blur', (e) => {
+      const f = e.target.value;
+      const params = new URLSearchParams(window.location.search);
+      params.set('f', f);
+      window.location.search = params;
+    });
+
+    console.log(f.value)
+
+    const METERS = 20;
+
+    const container = document.getElementById("meter-container");
+    for (let i = 0; i < METERS; i++) {
+      const div = document.createElement('div');
+      div.classList.add('meter-wrapper');
+
+      const meter = document.createElement('meter');
+      meter.min = -1;
+      meter.max = 1;
+      meter.low = -0.33;
+      meter.high = 0.33;
+      meter.optimum = 1;
+      meter.value = 0;
+      meter.id = 'meter-' + i;
+      div.appendChild(meter);
+
+      const span = document.createElement('span');
+      span.id = 'meter-value-' + i;
+      span.innerText = '0';
+      div.appendChild(span);
+
+      container.appendChild(div);
+    }
+
+    function step(timestamp) {
+      const t = timestamp / 5000;
+      const div = document.getElementById('t');
+      div.innerText = "t: " + t.toFixed(2);
+
+      for (let i = 0; i < METERS; i++) {
+        const f = document.getElementById('f');
+        const meter = document.getElementById('meter-' + i);
+        const error = document.getElementById('f-eval-error');
+        const span = document.getElementById('meter-value-' + i);
+        
+        try {
+          meter.value = eval(f.value);
+          error.innerText = "";
+        } catch (e) {
+          error.innerText = e;
+        }
+        meter.innerText = meter.value;
+
+        span.innerText = meter.value.toFixed(2);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    window.requestAnimationFrame(step);
+
+  </script>
+</body>
+
+</html>
