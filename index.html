@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>meters</title>
+  <title>meterland</title>
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -14,10 +14,11 @@
     }
 
     meter {
-      width: 300px;
+      width: 600px;
       height: 30px;
       margin-right: 2px;
       display: block;
+      margin: -5px 0;
     }
 
     .meter-wrapper {
@@ -40,8 +41,8 @@
 
 <body>
 
-  <h1>Meters</h1>
-  Did you know that there's <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter"><code>&lt;meter&gt;</code> element?</a>
+  <h1>meterland</h1>
+  did you know that there's <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter"><code>&lt;meter&gt;</code> element?</a>
 
   <pre>
     <code>
@@ -57,7 +58,7 @@
 
   <br />
 
-  Shoutout to <a href="https://sliderland.blinry.org/">Sliderland</a>.
+  shoutout to <a href="https://sliderland.blinry.org/">Sliderland</a>
 
   <br />
   <br />
@@ -78,10 +79,19 @@
       <a href="?f=Math.sin(t%20%2B%20i%20*%20Math.PI%20%2F%204)">Math.sin(t + i * Math.PI / 4)</a>
     </li>
     <li>
+      <a href="?f=2**i+%26+t*10">2**i & t*10</a>
+    </li>
+    <li>
+      <a href="?f=%28i%252-0.5%29*Math.sin%28Math.acos%281-y*2%29%29%2B0.5">((i%2-0.5)*Math.sin(Math.acos(1-y*2))+0.5)</a>
+    </li>
+    <li>
       <a href="?f=Math.random%28%29">Math.random()</a>
     </li>
     <li>
-      <a href="?f=Math.sin(t%20%2B%20i%20*%20Math.PI%20%2F%204)">Math.sin(t + i * Math.PI / 4)</a>
+      <a href="?f=t+*+y+%25+1">t * y % 1</a>
+    </li>
+    <li>
+      <a href="?f=%28Math.sin%28t+%2B+i+%2F+4%29+%2B+1%29+%2F+2">(Math.sin(t + i / 4) + 1) / 2</a>
     </li>
   </ul>
 
@@ -105,7 +115,7 @@
       window.location.search = params;
     });
 
-    const METERS = 21;
+    const METERS = 35;
 
     const container = document.getElementById("meter-container");
     for (let i = 0; i < METERS; i++) {
