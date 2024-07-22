@@ -72,7 +72,7 @@
   
   <label for="f">value(<abbr title="time in seconds">t</abbr>, <abbr title="position of the meter [0..1]">y</abbr>, <abbr title="index of the meter [0..21)">i</abbr>) = </label>
   <!-- change me to set the default function -->
-  <input type="text" id="f" value="y + Math.sin(t)">
+  <input type="text" id="f" value="(Math.sin(t + i / 4) + 1) / 2">
   <pre id="f-eval-error">
 
   </pre>
@@ -82,6 +82,9 @@
   <h2>Cool functions</h2>
 
   <ul>
+    <li>
+      <a href="?f=y+%2B+Math.sin%28t%29">y + Math.sin(t)</a>
+    </li>
     <li>
       <a href="?f=%28Math.sin%28t+%2B+i+%2F+4%29+%2B+1%29+%2F+2">(Math.sin(t + i / 4) + 1) / 2</a>
     </li>
@@ -112,11 +115,14 @@
       window.location.search = params
     }
 
+    document.title = input.value + ' - meterland';
+
     document.getElementById('f').addEventListener('blur', (e) => {
       const f = e.target.value;
       const params = new URLSearchParams(window.location.search);
       params.set('f', f);
       window.location.search = params;
+      document.title = f + ' - meterland';
     });
 
     const METERS = 35;
